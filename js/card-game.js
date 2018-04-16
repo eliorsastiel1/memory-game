@@ -15,6 +15,10 @@ var cardNumber = [[1,1,2],
                  [5,6,6]
                  ];
 
+var numberOfMoves=0;
+
+var t0=0;
+var t1=0;
 
 var cardsValue=[{value:0, id:"one"},{value:0, id:"one"}];
 
@@ -40,6 +44,7 @@ function init(){
         cardNumber[i][j]=cardNumber[i1][j1];
         cardNumber[i1][j1]=temp;
     }
+    t0 = performance.now();
 }
 
 
@@ -110,6 +115,8 @@ function respondToTheClick(evt) {
                     setTimeout(finished , 500);
                 }
             }
+            numberOfMoves++;
+            document.getElementById("number-of-moves").innerHTML=numberOfMoves;
             index=0;
         }
 }
@@ -144,7 +151,9 @@ function MakeTheButtonClickable(id){
 
 //when the game is finshed this function is called.
 function finished(){
-    alert("You did it! well done :)");
+    t1=performance.now();
+    var time= (t1-t0) / 1000;
+    alert("You did it! well done :) your time is: " + time + "seconds");
     location.reload();
 }
 
