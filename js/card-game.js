@@ -17,14 +17,15 @@ var cardNumber = [[1,1,2],
 
 var numberOfMoves=0;
 
-var t0=0;
-var t1=0;
+var timer=0;
 
 var cardsValue=[{value:0, id:"one"},{value:0, id:"one"}];
 
 var index = 0;
 
 var inited=false;
+
+var intervalId
 
 function restart(){
     debugger;
@@ -33,7 +34,6 @@ function restart(){
 
 //The init function is swaping the array element
 function init(){
-    debugger;
     for(var k=0 ; k<25; k++){
         var i= Math.floor((Math.random() * 4));
         var j= Math.floor((Math.random() * 3));
@@ -44,7 +44,8 @@ function init(){
         cardNumber[i][j]=cardNumber[i1][j1];
         cardNumber[i1][j1]=temp;
     }
-    t0 = performance.now();
+    intervalId=setInterval(setTimer,1000);
+   
 }
 
 
@@ -151,9 +152,23 @@ function MakeTheButtonClickable(id){
 
 //when the game is finshed this function is called.
 function finished(){
-    t1=performance.now();
-    var time= (t1-t0) / 1000;
-    alert("You did it! well done :) your time is: " + time + "seconds");
+    clearInterval(intervalId);
+    var numberOfStar="";
+    if(numberOfMoves>0 && numberOfMoves<=15){
+        numberOfStar="* * *";
+    }
+    else if(numberOfMoves>15 && numberOfMoves<=30) {
+        numberOfStar="* * ";
+    }
+    else{
+        numberOfStar="*";
+    }
+    alert(numberOfStar+"\nwell done :)\n You did it with " +numberOfMoves+ "moves.\n Time: " + timer + " seconds.\n If you want to play again press ok.");
     location.reload();
+}
+
+function setTimer(){
+    timer++;
+    document.getElementById("timer").innerHTML=timer+" seconds";
 }
 
