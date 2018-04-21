@@ -19,6 +19,8 @@ var numberOfMoves=0;
 
 var timer=0;
 
+var numberOfStar="* * *";
+
 var cardsValue=[{value:0, id:"one"},{value:0, id:"one"}];
 
 var index = 0;
@@ -45,7 +47,7 @@ function init(){
         cardNumber[i1][j1]=temp;
     }
     intervalId=setInterval(setTimer,1000);
-   
+    document.getElementById("num-of-star").innerHTML=numberOfStar;
 }
 
 
@@ -118,6 +120,7 @@ function respondToTheClick(evt) {
             }
             numberOfMoves++;
             document.getElementById("number-of-moves").innerHTML=numberOfMoves;
+            changeTheStar();
             index=0;
         }
 }
@@ -153,16 +156,6 @@ function MakeTheButtonClickable(id){
 //when the game is finshed this function is called.
 function finished(){
     clearInterval(intervalId);
-    var numberOfStar="";
-    if(numberOfMoves>0 && numberOfMoves<=15){
-        numberOfStar="* * *";
-    }
-    else if(numberOfMoves>15 && numberOfMoves<=30) {
-        numberOfStar="* * ";
-    }
-    else{
-        numberOfStar="*";
-    }
     alert(numberOfStar+"\nwell done :)\n You did it with " +numberOfMoves+ "moves.\n Time: " + timer + " seconds.\n If you want to play again press ok.");
     location.reload();
 }
@@ -172,3 +165,15 @@ function setTimer(){
     document.getElementById("timer").innerHTML=timer+" seconds";
 }
 
+function changeTheStar(){
+    if(numberOfMoves>0 && numberOfMoves<=10){
+        numberOfStar="* * *";
+    }
+    else if(numberOfMoves>10 && numberOfMoves<=20) {
+        numberOfStar="* * ";
+    }
+    else{
+        numberOfStar="*";
+    }
+    document.getElementById("num-of-star").innerHTML=numberOfStar;
+}
